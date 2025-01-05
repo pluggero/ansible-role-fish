@@ -9,6 +9,17 @@ set -g __fish_config_sourced 1
 set -gx {{ variable.name }} {{ variable.value }}
 {% endfor %}
 
+# Keybindings
+{% for keybinding in fish_keybindings %}
+bind {{ keybinding.key }} '{{ keybinding.function }}'
+{% endfor %}
+
+# Functions
+{% for function in fish_functions %}
+function {{ function.name }} --description '{{ function.description | default("") }}'
+  {{ function.command }}
+end
+{% endfor %}
 
 
 # If fish is executed with a login shell
@@ -39,9 +50,3 @@ status is-interactive; and begin
   {% endfor %}
 
 end
-
-
-
-
-
-

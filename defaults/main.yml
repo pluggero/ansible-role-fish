@@ -30,3 +30,19 @@ fish_aliases_host: []
 #  - alias:
 #    name: example
 #    value: "example"
+
+fish_keybindings_role:
+  - keybinding:
+    key: \co
+    function: "clear_and_repaint"
+fish_keybindings_host: []
+#  - keybinding:
+#    key: \co
+#    function: "example"
+
+# default functions are defined in files/functions/
+fish_functions: []
+#  - function:
+#    name: example
+#    description: "example"
+#    command: "example"

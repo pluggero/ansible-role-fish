@@ -15,6 +15,6 @@
 
     - name: Ensure fish is installed
       ansible.builtin.apt:
-        name: "{{ fish_distro_pkgs }}"
+        name: "{{ fish_dep_pkgs }}"
         state: present
       become: true

@@ -1,5 +1,5 @@
 ---
-- name: Install i3wm OS-specifically via package
+- name: Install fish OS-specifically via package
   ansible.builtin.include_tasks: "{{ var_file }}"
   with_first_found:
     - "noauto_install_{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
