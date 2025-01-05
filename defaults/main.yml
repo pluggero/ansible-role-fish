@@ -1,0 +1,32 @@
+---
+fish_config_dir: "{{ ansible_env.HOME }}/.config/fish"
+fish_functions_dir: "{{ fish_config_dir }}/functions"
+fish_config_file: "{{ fish_config_dir }}/config.fish"
+fish_install_method: "package"
+fish_set_default_shell: false
+
+fish_login_shell_command: ""
+
+fish_env_variables_role:
+  - variable: # Fix GPG with fish shell
+    name: GPG_TTY
+    value: "(tty)"
+fish_env_variables_host: []
+#  - variable:
+#    name: example
+#    value: "example"
+
+fish_abbreviations_role:
+  - abbreviation:
+    name: l
+    value: "ls -lah"
+fish_abbreviations_host: []
+#  - abbreviation:
+#    name: example
+#    value: "example"
+
+fish_aliases_role: []
+fish_aliases_host: []
+#  - alias:
+#    name: example
+#    value: "example"

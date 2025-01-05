@@ -1,0 +1,47 @@
+# Managed by Ansible, please don't edit manually
+
+# Only execute this file once per shell.
+set -q __fish_config_sourced; and exit
+set -g __fish_config_sourced 1
+
+# Environment variables
+{% for variable in fish_env_variables %}
+set -gx {{ variable.name }} {{ variable.value }}
+{% endfor %}
+
+
+
+# If fish is executed with a login shell
+status is-login; and begin
+
+    # Login shell initialisation
+    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+      {{ fish_login_shell_command }}
+    end
+
+end
+
+
+
+status is-interactive; and begin
+
+  # Remove Interactive shell initialisation
+  set -g fish_greeting
+
+  # Abbreviations
+  {% for abbreviation in fish_abbreviations %}
+  abbr --add -- {{ abbreviation.name }} '{{ abbreviation.value }}'
+  {% endfor %}
+
+  # Aliases
+  {% for alias in fish_aliases %}
+  alias {{ alias.name }}='{{ alias.value }}'
+  {% endfor %}
+
+end
+
+
+
+
+
+

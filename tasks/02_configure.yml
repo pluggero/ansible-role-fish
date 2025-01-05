@@ -1,0 +1,46 @@
+---
+- name: Configure fish
+  block:
+    - name: Combine default env variables with host-specific env variables
+      ansible.builtin.set_fact:
+        fish_env_variables: "{{ fish_env_variables_role + fish_env_variables_host }}"
+
+    - name: Combine default abbreviations with host-specific abbreviations
+      ansible.builtin.set_fact:
+        fish_abbreviations: "{{ fish_abbreviations_role + fish_abbreviations_host }}"
+
+    - name: Combine default aliases with host-specific aliases
+      ansible.builtin.set_fact:
+        fish_aliases: "{{ fish_aliases_role + fish_aliases_host }}"
+
+    - name: Ensure config folder exists
+      ansible.builtin.file:
+        path: "{{ fish_config_dir }}"
+        state: directory
+        mode: "0750"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Add fish config file
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/config.fish.j2"
+        dest: "{{ fish_config_file }}"
+        mode: "0600"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Ensure functions folder exists
+      ansible.builtin.file:
+        path: "{{ fish_functions_dir }}"
+        state: directory
+        mode: "0750"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Add fish functions
+      ansible.builtin.copy:
+        src: "files/functions/"
+        dest: "{{ fish_functions_dir }}"
+        mode: 0750
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

@@ -1,0 +1,22 @@
+---
+- name: Set fish as default shell for {{ ansible_user }}
+  when: fish_set_default_shell == true
+  block:
+    - name: Determine fish binary path
+      ansible.builtin.command:
+        cmd: "which fish"
+      register: fish_path
+      changed_when: false
+
+    - name: Add fish to /etc/shells
+      ansible.builtin.lineinfile:
+        path: "/etc/shells"
+        line: "{{ fish_path.stdout }}"
+        state: present
+        create: yes
+        validate: 'grep -qxF "{{ fish_path.stdout }}" %s || exit 1'
+
+    - name: Change user's default shell to Fish
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: "{{ fish_path.stdout }}"
