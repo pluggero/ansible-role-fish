@@ -39,6 +39,25 @@ fish_aliases_host:
 
 Set aliases for the fish shell with the `fish_aliases_host` variable.
 
+```yaml
+fish_keybindings_host:
+  - keybinding:
+    key: \co
+    function: "example"
+```
+
+Set keybindings for the fish shell with the `fish_keybindings_host` variable.
+
+```yaml
+fish_functions:
+  - function:
+    name: example
+    description: "example"
+    command: "example"
+```
+
+Set functions for the fish shell with the `fish_functions` variable.
+
 ## Dependencies
 
 None.
