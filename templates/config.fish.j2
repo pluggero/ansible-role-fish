@@ -14,18 +14,6 @@ source {{ file }}
 set -gx {{ variable.name }} {{ variable.value }}
 {% endfor %}
 
-# Keybindings
-{% for keybinding in fish_keybindings %}
-bind {{ keybinding.key }} '{{ keybinding.function }}'
-{% endfor %}
-
-# Functions
-{% for function in fish_functions %}
-function {{ function.name }} --description '{{ function.description | default("") }}'
-  {{ function.command }}
-end
-{% endfor %}
-
 
 # If fish is executed with a login shell
 status is-login; and begin
@@ -40,11 +28,22 @@ status is-login; and begin
 end
 
 
-
 status is-interactive; and begin
 
   # Remove Interactive shell initialisation
   set -g fish_greeting
+
+  # Keybindings
+  {% for keybinding in fish_keybindings %}
+  bind {{ keybinding.key }} '{{ keybinding.function }}'
+  {% endfor %}
+
+  # Functions
+  {% for function in fish_functions %}
+  function {{ function.name }} --description '{{ function.description | default("") }}'
+    {{ function.command }}
+  end
+  {% endfor %}
 
   # Abbreviations
   {% for abbreviation in fish_abbreviations %}
@@ -54,6 +53,11 @@ status is-interactive; and begin
   # Aliases
   {% for alias in fish_aliases %}
   alias {{ alias.name }}='{{ alias.value }}'
+  {% endfor %}
+
+  # Additional configuration
+  {% for config in fish_additional_config %}
+  {{ config }} 
   {% endfor %}
 
 end

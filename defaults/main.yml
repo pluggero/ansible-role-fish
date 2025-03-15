@@ -50,3 +50,6 @@ fish_functions: []
 #    name: example
 #    description: "example"
 #    command: "example"
+
+fish_additional_config: []
+# - "zoxide init fish | source"
