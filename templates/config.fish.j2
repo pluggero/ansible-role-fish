@@ -33,7 +33,7 @@ status is-login; and begin
     # Login shell initialisation
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
       {% for command in fish_login_shell_commands %}
-      {{ command } 
+      {{ command }}
       {% endfor %}
     end
 
