@@ -13,6 +13,13 @@ None.
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
 ```yaml
+fish_env_files:
+  - "{{ ansible_env.HOME }}/.env_vars"
+```
+
+Set environment files for the fish shell that are sourced with the `fish_env_files` variable.
+
+```yaml
 fish_env_variables_host:
   - variable:
     name: example
@@ -57,6 +64,13 @@ fish_functions:
 ```
 
 Set functions for the fish shell with the `fish_functions` variable.
+
+```yaml
+fish_login_shell_commands:
+  - exec /usr/bin/sway
+```
+
+Set login shell commands for the fish shell with the `fish_login_shell_commands` variable.
 
 ## Dependencies
 

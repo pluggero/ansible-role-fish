@@ -4,6 +4,11 @@
 set -q __fish_config_sourced; and exit
 set -g __fish_config_sourced 1
 
+# Environment files
+{% for file in fish_env_files %}
+source {{ file }} 
+{% endfor %}
+
 # Environment variables
 {% for variable in fish_env_variables %}
 set -gx {{ variable.name }} {{ variable.value }}
@@ -27,7 +32,9 @@ status is-login; and begin
 
     # Login shell initialisation
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-      {{ fish_login_shell_command }}
+      {% for command in fish_login_shell_commands %}
+      {{ command } 
+      {% endfor %}
     end
 
 end

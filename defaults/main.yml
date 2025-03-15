@@ -5,7 +5,8 @@ fish_config_file: "{{ fish_config_dir }}/config.fish"
 fish_install_method: "package"
 fish_set_default_shell: false
 
-fish_login_shell_command: ""
+fish_login_shell_commands: []
+#  - exec /usr/bin/sway
 
 fish_env_variables_role:
   - variable: # Fix GPG with fish shell
@@ -15,6 +16,9 @@ fish_env_variables_host: []
 #  - variable:
 #    name: example
 #    value: "example"
+
+fish_env_files: []
+#  - "{{ ansible_env.HOME }}/.env_vars"
 
 fish_abbreviations_role:
   - abbreviation:
