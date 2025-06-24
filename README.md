@@ -13,6 +13,24 @@ None.
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
 ```yaml
+fish_version: "x.x"
+```
+
+The version of fish to install can be defined in the variable `fish_version`.
+
+```yaml
+fish_install_method: "dynamic"
+```
+
+The method used to install fish can be defined in the variable `fish_install_method`.
+The following methods are available:
+
+- `source`: Installs fish from source
+- `package`: Installs fish from the package manager of the distribution
+  - **NOTE**: This method installs the latest version available in the package manager and not the version defined in `fish_version`.
+- `dynamic`: Installs fish from package manager if available in the correct version, otherwise installs from source
+
+```yaml
 fish_env_files:
   - "{{ ansible_env.HOME }}/.env_vars"
 ```
