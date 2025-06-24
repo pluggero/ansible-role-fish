@@ -3,5 +3,10 @@ fish_dep_pkgs:
   - fzf
   - gawk
 
+fish_build_pkgs:
+  - git
+  - build-essential
+  - cmake
+
 fish_distro_pkgs:
   - fish

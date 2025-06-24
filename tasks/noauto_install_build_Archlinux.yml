@@ -11,8 +11,8 @@
         update_cache: true
       become: true
 
-    - name: Ensure fish dependencies are installed
+    - name: Ensure fish build pkgs are installed
       community.general.pacman:
-        name: "{{ fish_dep_pkgs }}"
+        name: "{{ fish_build_pkgs }}"
         state: present
       become: true
