@@ -5,7 +5,6 @@
   when: ansible_pkg_mgr != "pacman"
 
 - name: Install fish via pacman
-  when: ansible_pkg_mgr == "pacman"
   block:
     - name: Update pacman cache
       community.general.pacman:

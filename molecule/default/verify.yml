@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  vars_files:
+    - ../../defaults/main.yml
+
+  tasks:
+    - name: Check installed version
+      ansible.builtin.include_tasks: "../../tasks/noauto_check_installed_version.yml"
+
+    - name: Assert installed version is correct
+      ansible.builtin.assert:
+        that:
+          - "fish_installed_version == fish_version"

@@ -4,15 +4,15 @@
     msg: "This role only supports {{ ansible_os_family }} systems that use pacman as a package manager."
   when: ansible_pkg_mgr != "pacman"
 
-- name: Install fish dependencies via pacman
+- name: Uninstall fish from pacman
   block:
     - name: Update pacman cache
       community.general.pacman:
         update_cache: true
       become: true
 
-    - name: Ensure fish dependencies are installed
+    - name: Remove fish if it is installed
       community.general.pacman:
-        name: "{{ fish_dep_pkgs }}"
-        state: present
+        name: "{{ fish_distro_pkgs }}"
+        state: absent
       become: true

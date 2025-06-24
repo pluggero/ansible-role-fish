@@ -1,8 +1,17 @@
 ---
 fish_config_dir: "{{ ansible_env.HOME }}/.config/fish"
-fish_functions_dir: "{{ fish_config_dir }}/functions"
 fish_config_file: "{{ fish_config_dir }}/config.fish"
-fish_install_method: "package"
+
+fish_version: "4.0.2"
+fish_install_method: "dynamic"
+fish_force_install: false
+
+fish_rustup_role: "pluggero.rustup"
+
+fish_download_url: "https://github.com/fish-shell/fish-shell/archive/refs/tags/{{ fish_version }}.tar.gz"
+fish_download_dir: "/tmp"
+
+fish_functions_dir: "{{ fish_config_dir }}/functions"
 fish_set_default_shell: false
 
 fish_login_shell_commands: []

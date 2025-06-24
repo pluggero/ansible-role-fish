@@ -1,0 +1,87 @@
+---
+- name: Ensure fish is installed
+  block:
+    - name: Import installed fish version check
+      ansible.builtin.include_tasks: noauto_check_installed_version.yml
+      when: fish_installed_version is not defined
+
+    - name: Force install if the version numbers do not match
+      ansible.builtin.set_fact:
+        fish_force_install: true
+      when:
+        - fish_installed_version is defined
+        - fish_installed_version != fish_version
+
+    - name: Install fish from source
+      when: fish_installed_version is not defined or fish_force_install
+      block:
+        - name: Uninstall current fish installation
+          ansible.builtin.include_tasks: noauto_uninstall.yml
+          when: fish_installed_version is defined and fish_installed_version != ""
+
+        - name: Include rustup role
+          ansible.builtin.include_role:
+            name: "{{ fish_rustup_role }}"
+
+        - name: Install OS-specific build packages
+          ansible.builtin.include_tasks: "{{ task_file }}"
+          with_first_found:
+            - "noauto_install_build_{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+            - "noauto_install_build_{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+            - "noauto_install_build_{{ ansible_distribution }}.yml"
+            - "noauto_install_build_{{ ansible_os_family }}.yml"
+            - "noauto_install_build_{{ ansible_lsb.id }}.yml"
+          loop_control:
+            loop_var: task_file
+
+        - name: Download fish
+          ansible.builtin.get_url:
+            url: "{{ fish_download_url }}"
+            dest: "{{ fish_download_dir }}/fish-{{ fish_version }}.tar.gz"
+            mode: "0600"
+            owner: "{{ ansible_user }}"
+            group: "{{ ansible_user }}"
+
+        - name: Extract archive
+          ansible.builtin.unarchive:
+            src: "{{ fish_download_dir }}/fish-{{ fish_version }}.tar.gz"
+            dest: "{{ fish_download_dir }}/"
+            remote_src: true
+
+        - name: Configure fish
+          ansible.builtin.command:
+            cmd: cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
+            chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
+          changed_when: true
+          become: true
+
+        - name: Determine parallel build jobs
+          ansible.builtin.set_fact:
+            fish_make_jobs: "{{ ansible_processor_vcpus | default(ansible_processor_count | default(1)) }}"
+
+        - name: Build fish
+          ansible.builtin.command:
+            cmd: "make -j{{ fish_make_jobs }}"
+            chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
+          environment:
+            # Avoid build.rs panic when git isn't available or the source isn't a git repo
+            FISH_BUILD_VERSION: "{{ fish_version }}"
+          changed_when: true
+          become: true
+
+        - name: Install fish
+          ansible.builtin.command:
+            cmd: make install
+            chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
+          changed_when: true
+          become: true
+
+        - name: Remove build directory
+          ansible.builtin.file:
+            path: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
+            state: absent
+
+        - name: Remove archive
+          ansible.builtin.file:
+            path: "{{ fish_download_dir }}/fish-{{ fish_version }}.tar.gz"
+            state: absent

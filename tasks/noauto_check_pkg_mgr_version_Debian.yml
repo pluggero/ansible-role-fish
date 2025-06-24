@@ -1,0 +1,30 @@
+---
+- name: Ensure we are using apt
+  ansible.builtin.fail:
+    msg: "This role only supports {{ ansible_os_family }} systems that use apt as a package manager."
+  when: ansible_pkg_mgr != "apt"
+
+- name: Install fish dependencies via apt
+  when: fish_distro_pkgs is defined and fish_distro_pkgs | length > 0
+  block:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      become: true
+
+    - name: Get fish version from package manager
+      ansible.builtin.command:
+        cmd: "apt show {{ fish_distro_pkgs[0] }}"
+      changed_when: false
+      failed_when: false
+      ignore_errors: true
+      register: fish_pkg_mgr_version_cmd
+
+    - name: Extract only the version into a variable
+      ansible.builtin.set_fact:
+        fish_pkg_mgr_version: "{{ (fish_pkg_mgr_version_cmd.stdout | regex_search('Version:\\ ([\\d\\.]+)', '\\1', multiline=True))[0] }}"
+
+    - name: Debug fish version from package manager
+      ansible.builtin.debug:
+        var: fish_pkg_mgr_version

@@ -1,0 +1,8 @@
+---
+- name: Uninstall fish from source
+  block:
+    - name: Remove fish binary
+      ansible.builtin.file:
+        path: "/usr/local/bin/fish"
+        state: absent
+      become: true
