@@ -41,7 +41,9 @@ status is-interactive; and begin
   # Functions
   {% for function in fish_functions %}
   function {{ function.name }} --description '{{ function.description | default("") }}'
-    {{ function.command }}
+  {% for line in function.command.splitlines() %}
+    {{ line }}
+  {% endfor %}
   end
   {% endfor %}
 
