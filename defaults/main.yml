@@ -15,50 +15,37 @@ fish_functions_dir: "{{ fish_config_dir }}/functions"
 fish_set_default_shell: false
 
 fish_login_shell_commands: []
-#  - exec /usr/bin/sway
+  # - exec /usr/bin/sway
 
-fish_env_variables_role:
-  - variable: # Fix GPG with fish shell
-    name: GPG_TTY
-    value: "(tty)"
-fish_env_variables_host: []
-#  - variable:
-#    name: example
-#    value: "example"
+fish_env_variables: []
+  # - variable:
+  #   name: example
+  #   value: "example"
 
 fish_env_files: []
-#  - "{{ ansible_env.HOME }}/.env_vars"
+  # - "{{ ansible_env.HOME }}/.env_vars"
 
-fish_abbreviations_role:
-  - abbreviation:
-    name: l
-    value: "ls -lah"
-fish_abbreviations_host: []
-#  - abbreviation:
-#    name: example
-#    value: "example"
+fish_abbreviations: []
+  # - abbreviation:
+  #   name: l
+  #   value: "ls -lah"
 
-fish_aliases_role: []
-fish_aliases_host: []
-#  - alias:
-#    name: example
-#    value: "example"
+fish_aliases: []
+  # - alias:
+  #   name: example
+  #   value: "example"
 
-fish_keybindings_role:
-  - keybinding:
-    key: \co
-    function: "clear_and_repaint"
-fish_keybindings_host: []
-#  - keybinding:
-#    key: \co
-#    function: "example"
+fish_keybindings: []
+  # - keybinding:
+  #   key: \co
+  #   function: "clear_and_repaint"
 
 # default functions are defined in files/functions/
 fish_functions: []
-#  - function:
-#    name: example
-#    description: "example"
-#    command: "example"
+  # - function:
+  #   name: example
+  #   description: "example"
+  #   command: "example"
 
 fish_additional_config: []
-# - "zoxide init fish | source"
+  # - "zoxide init fish | source"
