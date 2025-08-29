@@ -16,5 +16,8 @@ galaxy_info:
     - name: Debian
       versions:
         - bookworm
+    - name: Ubuntu
+      versions:
+        - noble
 
   galaxy_tags: []

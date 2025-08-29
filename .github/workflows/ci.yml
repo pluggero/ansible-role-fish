@@ -48,6 +48,7 @@ jobs:
         distro:
           - debian12
           - archlinux
+          - ubuntu2404
 
     steps:
       - name: Check out the codebase
