@@ -38,40 +38,40 @@ fish_env_files:
 Set environment files for the fish shell that are sourced with the `fish_env_files` variable.
 
 ```yaml
-fish_env_variables_host:
+fish_env_variables:
   - variable:
     name: example
     value: "example"
 ```
 
-Set environment variables for the fish shell with the `fish_env_variables_host` variable.
+Set environment variables for the fish shell with the `fish_env_variables` variable.
 
 ```yaml
-fish_abbreviations_host:
+fish_abbreviations:
   - abbreviation:
     name: example
     value: "example"
 ```
 
-Set abbreviations for the fish shell with the `fish_abbreviations_host` variable.
+Set abbreviations for the fish shell with the `fish_abbreviations` variable.
 
 ```yaml
-fish_aliases_host:
+fish_aliases:
   - alias:
     name: example
     value: "example"
 ```
 
-Set aliases for the fish shell with the `fish_aliases_host` variable.
+Set aliases for the fish shell with the `fish_aliases` variable.
 
 ```yaml
-fish_keybindings_host:
+fish_keybindings:
   - keybinding:
     key: \co
     function: "example"
 ```
 
-Set keybindings for the fish shell with the `fish_keybindings_host` variable.
+Set keybindings for the fish shell with the `fish_keybindings` variable.
 
 ```yaml
 fish_functions:

@@ -2,8 +2,14 @@
 - name: Verify
   hosts: all
   gather_facts: true
+
   vars_files:
     - ../../defaults/main.yml
+    - ../../vars/molecule_vars.yml
+
+  vars:
+    ansible_user: ansible
+    ansible_become_password: ansible
 
   tasks:
     - name: Check installed version
@@ -13,3 +19,49 @@
       ansible.builtin.assert:
         that:
           - "fish_installed_version == fish_version"
+
+    - name: Check fish config file exists
+      ansible.builtin.stat:
+        path: "{{ fish_config_file }}"
+      register: fish_config_stat
+
+    - name: Assert fish config file exists
+      ansible.builtin.assert:
+        that:
+          - fish_config_stat.stat.exists
+
+    - name: Read fish config file
+      ansible.builtin.slurp:
+        src: "{{ fish_config_file }}"
+      register: fish_config_content
+
+    - name: Decode fish config content
+      ansible.builtin.set_fact:
+        fish_config_text: "{{ fish_config_content.content | b64decode }}"
+
+    - name: Verify environment variable is set
+      ansible.builtin.assert:
+        that:
+          - "'set -gx TEST_VAR molecule_test' in fish_config_text"
+        fail_msg: "Environment variable TEST_VAR not found in fish config"
+
+    - name: Verify abbreviation is configured
+      ansible.builtin.assert:
+        that:
+          - "'abbr --add -- test_abbr' in fish_config_text"
+          - "'echo test' in fish_config_text"
+        fail_msg: "Abbreviation test_abbr not found in fish config"
+
+    - name: Verify alias is configured
+      ansible.builtin.assert:
+        that:
+          - "'alias test_alias=' in fish_config_text"
+          - "'echo alias_test' in fish_config_text"
+        fail_msg: "Alias test_alias not found in fish config"
+
+    - name: Verify keybinding is configured
+      ansible.builtin.assert:
+        that:
+          - "'bind \\ct' in fish_config_text"
+          - "'take' in fish_config_text"
+        fail_msg: "Keybinding \\ct not found in fish config"

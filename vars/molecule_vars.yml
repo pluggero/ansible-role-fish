@@ -1,0 +1,23 @@
+---
+# Molecule testing variables
+# These variables override defaults for comprehensive testing
+
+fish_env_variables:
+  - variable:
+    name: TEST_VAR
+    value: "molecule_test"
+
+fish_abbreviations:
+  - abbreviation:
+    name: test_abbr
+    value: "echo test"
+
+fish_aliases:
+  - alias:
+    name: test_alias
+    value: "echo alias_test"
+
+fish_keybindings:
+  - keybinding:
+    key: \ct
+    function: "take"

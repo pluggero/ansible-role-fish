@@ -1,22 +1,6 @@
 ---
 - name: Configure fish
   block:
-    - name: Combine default env variables with host-specific env variables
-      ansible.builtin.set_fact:
-        fish_env_variables: "{{ fish_env_variables_role + fish_env_variables_host }}"
-
-    - name: Combine default abbreviations with host-specific abbreviations
-      ansible.builtin.set_fact:
-        fish_abbreviations: "{{ fish_abbreviations_role + fish_abbreviations_host }}"
-
-    - name: Combine default aliases with host-specific aliases
-      ansible.builtin.set_fact:
-        fish_aliases: "{{ fish_aliases_role + fish_aliases_host }}"
-
-    - name: Combine default keybindings with host-specific keybindings
-      ansible.builtin.set_fact:
-        fish_keybindings: "{{ fish_keybindings_role + fish_keybindings_host }}"
-
     - name: Ensure config folder exists
       ansible.builtin.file:
         path: "{{ fish_config_dir }}"
