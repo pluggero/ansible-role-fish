@@ -3,7 +3,8 @@
   hosts: all
 
   vars:
-    ansible_user: root
+    ansible_user: ansible
+    ansible_become_password: ansible
 
   pre_tasks:
     - name: Update apt cache
@@ -11,6 +12,7 @@
         update_cache: true
         cache_valid_time: 600
       when: ansible_os_family == 'Debian'
+      become: true
 
   roles:
     - role: pluggero.fish
