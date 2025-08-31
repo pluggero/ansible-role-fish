@@ -42,7 +42,7 @@
     - name: Verify environment variable is set
       ansible.builtin.assert:
         that:
-          - "'set -gx TEST_VAR molecule_test' in fish_config_text"
+          - '''set -gx TEST_VAR "molecule_test"'' in fish_config_text'
         fail_msg: "Environment variable TEST_VAR not found in fish config"
 
     - name: Verify abbreviation is configured
