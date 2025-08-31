@@ -14,6 +14,9 @@
 
     - name: Remove fish if it is installed
       ansible.builtin.apt:
-        name: "{{ fish_distro_pkgs }}"
+        name: "{{ package }}"
         state: absent
+      loop: "{{ fish_distro_pkgs }}"
+      loop_control:
+        loop_var: package
       become: true

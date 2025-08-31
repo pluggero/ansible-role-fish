@@ -5,14 +5,18 @@ set -q __fish_config_sourced; and exit
 set -g __fish_config_sourced 1
 
 # Environment files
+{% if fish_env_files is defined and fish_env_files is not none and fish_env_files %}
 {% for file in fish_env_files %}
 source {{ file }} 
 {% endfor %}
+{% endif %}
 
 # Environment variables
+{% if fish_env_variables is defined and fish_env_variables is not none and fish_env_variables %}
 {% for variable in fish_env_variables %}
 set -gx {{ variable.name }} {{ variable.value }}
 {% endfor %}
+{% endif %}
 
 
 # If fish is executed with a login shell
@@ -20,9 +24,11 @@ status is-login; and begin
 
     # Login shell initialisation
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+      {% if fish_login_shell_commands is defined and fish_login_shell_commands is not none and fish_login_shell_commands %}
       {% for command in fish_login_shell_commands %}
       {{ command }}
       {% endfor %}
+      {% endif %}
     end
 
 end
@@ -34,11 +40,14 @@ status is-interactive; and begin
   set -g fish_greeting
 
   # Keybindings
+  {% if fish_keybindings is defined and fish_keybindings is not none and fish_keybindings %}
   {% for keybinding in fish_keybindings %}
   bind {{ keybinding.key }} '{{ keybinding.function }}'
   {% endfor %}
+  {% endif %}
 
   # Functions
+  {% if fish_functions is defined and fish_functions is not none and fish_functions %}
   {% for function in fish_functions %}
   function {{ function.name }} --description '{{ function.description | default("") }}'
   {% for line in function.command.splitlines() %}
@@ -46,20 +55,27 @@ status is-interactive; and begin
   {% endfor %}
   end
   {% endfor %}
+  {% endif %}
 
   # Abbreviations
+  {% if fish_abbreviations is defined and fish_abbreviations is not none and fish_abbreviations %}
   {% for abbreviation in fish_abbreviations %}
   abbr --add -- {{ abbreviation.name }} '{{ abbreviation.value }}'
   {% endfor %}
+  {% endif %}
 
   # Aliases
+  {% if fish_aliases is defined and fish_aliases is not none and fish_aliases %}
   {% for alias in fish_aliases %}
   alias {{ alias.name }}='{{ alias.value }}'
   {% endfor %}
+  {% endif %}
 
   # Additional configuration
+  {% if fish_additional_config is defined and fish_additional_config is not none and fish_additional_config %}
   {% for config in fish_additional_config %}
   {{ config }} 
   {% endfor %}
+  {% endif %}
 
 end
