@@ -14,7 +14,7 @@ source {{ file }}
 # Environment variables
 {% if fish_env_variables is defined and fish_env_variables is not none and fish_env_variables %}
 {% for variable in fish_env_variables %}
-set -gx {{ variable.name }} {{ variable.value }}
+set -gx {{ variable.name }} "{{ variable.value }}"
 {% endfor %}
 {% endif %}
 
@@ -42,7 +42,7 @@ status is-interactive; and begin
   # Keybindings
   {% if fish_keybindings is defined and fish_keybindings is not none and fish_keybindings %}
   {% for keybinding in fish_keybindings %}
-  bind {{ keybinding.key }} '{{ keybinding.function }}'
+  bind {{ keybinding.key }} "{{ keybinding.function }}"
   {% endfor %}
   {% endif %}
 
@@ -60,14 +60,14 @@ status is-interactive; and begin
   # Abbreviations
   {% if fish_abbreviations is defined and fish_abbreviations is not none and fish_abbreviations %}
   {% for abbreviation in fish_abbreviations %}
-  abbr --add -- {{ abbreviation.name }} '{{ abbreviation.value }}'
+  abbr --add -- {{ abbreviation.name }} "{{ abbreviation.value }}"
   {% endfor %}
   {% endif %}
 
   # Aliases
   {% if fish_aliases is defined and fish_aliases is not none and fish_aliases %}
   {% for alias in fish_aliases %}
-  alias {{ alias.name }}='{{ alias.value }}'
+  alias {{ alias.name }}="{{ alias.value }}"
   {% endfor %}
   {% endif %}
 
