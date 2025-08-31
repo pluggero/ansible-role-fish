@@ -18,32 +18,27 @@ fish_login_shell_commands: []
   # - exec /usr/bin/sway
 
 fish_env_variables: []
-  # - variable:
-  #   name: example
+  # - name: example
   #   value: "example"
 
 fish_env_files: []
   # - "{{ ansible_env.HOME }}/.env_vars"
 
 fish_abbreviations: []
-  # - abbreviation:
-  #   name: l
+  # - name: l
   #   value: "ls -lah"
 
 fish_aliases: []
-  # - alias:
-  #   name: example
+  # - name: example
   #   value: "example"
 
 fish_keybindings: []
-  # - keybinding:
-  #   key: \co
+  # - key: \co
   #   function: "clear_and_repaint"
 
 # default functions are defined in files/functions/
 fish_functions: []
-  # - function:
-  #   name: example
+  # - name: example
   #   description: "example"
   #   command: "example"
 
