@@ -39,8 +39,7 @@ Set environment files for the fish shell that are sourced with the `fish_env_fil
 
 ```yaml
 fish_env_variables:
-  - variable:
-    name: example
+  - name: example
     value: "example"
 ```
 
@@ -48,8 +47,7 @@ Set environment variables for the fish shell with the `fish_env_variables` varia
 
 ```yaml
 fish_abbreviations:
-  - abbreviation:
-    name: example
+  - name: example
     value: "example"
 ```
 
@@ -57,8 +55,7 @@ Set abbreviations for the fish shell with the `fish_abbreviations` variable.
 
 ```yaml
 fish_aliases:
-  - alias:
-    name: example
+  - name: example
     value: "example"
 ```
 
@@ -66,8 +63,7 @@ Set aliases for the fish shell with the `fish_aliases` variable.
 
 ```yaml
 fish_keybindings:
-  - keybinding:
-    key: \co
+  - key: \co
     function: "example"
 ```
 
@@ -75,8 +71,7 @@ Set keybindings for the fish shell with the `fish_keybindings` variable.
 
 ```yaml
 fish_functions:
-  - function:
-    name: example
+  - name: example
     description: "example"
     command: "example"
 ```
