@@ -13,6 +13,9 @@
 
     - name: Ensure fish is installed
       community.general.pacman:
-        name: "{{ fish_distro_pkgs }}"
+        name: "{{ package }}"
         state: present
+      loop: "{{ fish_distro_pkgs }}"
+      loop_control:
+        loop_var: package
       become: true

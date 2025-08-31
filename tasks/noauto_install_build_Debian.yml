@@ -14,6 +14,9 @@
 
     - name: Ensure fish build pkgs are installed
       ansible.builtin.apt:
-        name: "{{ fish_build_pkgs }}"
+        name: "{{ package }}"
         state: present
+      loop: "{{ fish_build_pkgs }}"
+      loop_control:
+        loop_var: package
       become: true
