@@ -5,7 +5,7 @@ fish_dep_pkgs:
 
 fish_build_pkgs:
   - git
-  - build-essential
+  - base-devel
   - cmake
   - gettext
 
