@@ -22,6 +22,7 @@
         - name: Include rustup role
           ansible.builtin.include_role:
             name: "{{ fish_rustup_role }}"
+            public: true
 
         - name: Install OS-specific build packages
           ansible.builtin.include_tasks: "{{ task_file }}"
@@ -76,6 +77,8 @@
             chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
           environment:
             FISH_BUILD_VERSION: "{{ fish_version }}"
+            PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+            RUSTUP_TOOLCHAIN: "{{ rustup_rust_version }}"
           changed_when: true
           become: true
 
@@ -83,6 +86,7 @@
           ansible.builtin.file:
             path: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
             state: absent
+          become: true
 
         - name: Remove archive
           ansible.builtin.file:
