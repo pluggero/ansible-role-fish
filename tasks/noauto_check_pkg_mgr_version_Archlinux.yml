@@ -10,7 +10,7 @@
     - name: Update pacman cache
       community.general.pacman:
         update_cache: true
-      changed_when: false # Cache update is a preparatory operation, not a state change
+      changed_when: false # The pacman module currently does not support cache_valid_time.
       become: true
 
     - name: Get fish version from package manager
