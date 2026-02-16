@@ -62,6 +62,12 @@ fish_aliases:
 Set aliases for the fish shell with the `fish_aliases` variable.
 
 ```yaml
+fish_enable_vim_mode: false
+```
+
+Enable vim mode for the fish shell with the `fish_enable_vim_mode` variable.
+
+```yaml
 fish_keybindings:
   - key: \co
     function: "example"

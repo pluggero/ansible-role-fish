@@ -39,6 +39,11 @@ status is-interactive; and begin
   # Remove Interactive shell initialisation
   set -g fish_greeting
 
+  # Vim mode
+  {% if fish_enable_vim_mode | default(false) %}
+  fish_vi_key_bindings
+  {% endif %}
+
   # Keybindings
   {% if fish_keybindings is defined and fish_keybindings is not none and fish_keybindings %}
   {% for keybinding in fish_keybindings %}

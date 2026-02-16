@@ -14,6 +14,8 @@ fish_aliases:
   - name: test_alias
     value: "echo alias_test"
 
+fish_enable_vim_mode: true
+
 fish_keybindings:
   - key: \ct
     function: "take"
