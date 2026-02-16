@@ -65,3 +65,9 @@
           - "'bind \\ct' in fish_config_text"
           - "'take' in fish_config_text"
         fail_msg: "Keybinding \\ct not found in fish config"
+
+    - name: Verify vim mode is enabled
+      ansible.builtin.assert:
+        that:
+          - "'fish_vi_key_bindings' in fish_config_text"
+        fail_msg: "Vim mode (fish_vi_key_bindings) not found in fish config"

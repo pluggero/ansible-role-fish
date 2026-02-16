@@ -14,6 +14,8 @@ fish_download_dir: "/tmp"
 fish_functions_dir: "{{ fish_config_dir }}/functions"
 fish_set_default_shell: false
 
+fish_enable_vim_mode: false
+
 fish_login_shell_commands: []
   # - exec /usr/bin/sway
 
