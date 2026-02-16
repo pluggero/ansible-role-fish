@@ -2,7 +2,7 @@
 fish_config_dir: "{{ ansible_env.HOME }}/.config/fish"
 fish_config_file: "{{ fish_config_dir }}/config.fish"
 
-fish_version: "4.3.3"
+fish_version: "4.4.0"
 fish_install_method: "dynamic"
 fish_force_install: false
 
