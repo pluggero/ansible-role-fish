@@ -44,6 +44,9 @@ status is-interactive; and begin
   fish_vi_key_bindings
   {% endif %}
 
+  # Remove mode prompt
+  functions -e fish_mode_prompt
+
   # Keybindings
   {% if fish_keybindings is defined and fish_keybindings is not none and fish_keybindings %}
   {% for keybinding in fish_keybindings %}
