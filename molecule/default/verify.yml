@@ -59,6 +59,12 @@
           - "'echo alias_test' in fish_config_text"
         fail_msg: "Alias test_alias not found in fish config"
 
+    - name: Verify color is configured
+      ansible.builtin.assert:
+        that:
+          - "'set -g fish_color_command blue' in fish_config_text"
+        fail_msg: "Color fish_color_command not found in fish config"
+
     - name: Verify keybinding is configured
       ansible.builtin.assert:
         that:

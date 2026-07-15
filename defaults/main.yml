@@ -34,6 +34,26 @@ fish_aliases: []
   # - name: example
   #   value: "example"
 
+fish_colors: []
+  # - name: fish_color_command
+  #   value: "blue"
+  #
+  # Available variables (fish 4.5.0), name is the full variable name:
+  # Syntax highlighting (fish_color_*): normal, command, keyword, quote, redirection,
+  #   end, error, param, option, comment, selection, operator, escape, cwd, cwd_root,
+  #   valid_path, autosuggestion, user, host, host_remote, cancel, search_match,
+  #   history_current, status, gray
+  # Pager (fish_pager_color_*): background, completion, description, prefix, progress,
+  #   selected_background, selected_completion, selected_description, selected_prefix,
+  #   secondary_background, secondary_completion, secondary_description, secondary_prefix
+  #
+  # Available named colors for `value` (from `set_color --print-colors`), or a hex
+  # code like "#ffaf00":
+  #   normal, black, red, green, yellow, blue, magenta, cyan, white,
+  #   brblack, brred, brgreen, bryellow, brblue, brmagenta, brcyan, brwhite
+  # Modifiers can be appended, e.g. value: "blue --bold" or "red --background=white":
+  #   --bold, --dim, --italics, --underline, --reverse (-r)
+
 fish_keybindings: []
   # - key: \co
   #   function: "clear_and_repaint"

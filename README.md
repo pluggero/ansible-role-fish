@@ -62,6 +62,14 @@ fish_aliases:
 Set aliases for the fish shell with the `fish_aliases` variable.
 
 ```yaml
+fish_colors:
+  - name: fish_color_command
+    value: "blue"
+```
+
+Set fish color variables with the `fish_colors` variable (`name` is the full variable name, e.g. `fish_color_command` or `fish_pager_color_prefix`). See `defaults/main.yml` for the full list of available `fish_color_*` / `fish_pager_color_*` variables. The template does not validate `name` — any variable fish recognizes (including future ones) works without role changes.
+
+```yaml
 fish_enable_vim_mode: false
 ```
 
