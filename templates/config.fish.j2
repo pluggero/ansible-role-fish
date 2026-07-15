@@ -39,6 +39,13 @@ status is-interactive; and begin
   # Remove Interactive shell initialisation
   set -g fish_greeting
 
+  # Colors
+  {% if fish_colors is defined and fish_colors is not none and fish_colors %}
+  {% for color in fish_colors %}
+  set -g {{ color.name }} {{ color.value }}
+  {% endfor %}
+  {% endif %}
+
   # Vim mode
   {% if fish_enable_vim_mode | default(false) %}
   fish_vi_key_bindings
