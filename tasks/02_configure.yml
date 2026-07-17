@@ -32,3 +32,18 @@
         mode: 0750
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
+
+    - name: Deploy fish prompt
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/fish_prompt.fish.j2"
+        dest: "{{ fish_functions_dir }}/fish_prompt.fish"
+        mode: "0750"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      when: fish_prompt_enabled and fish_prompt_custom != ""
+
+    - name: Remove fish prompt when disabled or unset
+      ansible.builtin.file:
+        path: "{{ fish_functions_dir }}/fish_prompt.fish"
+        state: absent
+      when: not fish_prompt_enabled or fish_prompt_custom == ""
