@@ -58,7 +58,6 @@ fish_keybindings: []
   # - key: \co
   #   function: "clear_and_repaint"
 
-# default functions are defined in files/functions/
 fish_functions: []
   # - name: example
   #   description: "example"
