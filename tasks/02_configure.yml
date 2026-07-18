@@ -25,14 +25,6 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
 
-    - name: Add fish functions
-      ansible.builtin.copy:
-        src: "files/functions/"
-        dest: "{{ fish_functions_dir }}"
-        mode: 0750
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-
     - name: Deploy fish prompt
       ansible.builtin.template:
         src: "{{ role_path }}/templates/fish_prompt.fish.j2"
