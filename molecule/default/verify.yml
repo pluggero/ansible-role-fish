@@ -77,3 +77,19 @@
         that:
           - "'fish_vi_key_bindings' in fish_config_text"
         fail_msg: "Vim mode (fish_vi_key_bindings) not found in fish config"
+
+    - name: Read fish prompt file
+      ansible.builtin.slurp:
+        src: "{{ fish_functions_dir }}/fish_prompt.fish"
+      register: fish_prompt_content
+
+    - name: Decode fish prompt content
+      ansible.builtin.set_fact:
+        fish_prompt_text: "{{ fish_prompt_content.content | b64decode }}"
+
+    - name: Verify custom fish prompt is deployed
+      ansible.builtin.assert:
+        that:
+          - "'function fish_prompt' in fish_prompt_text"
+          - "'molecule_test> ' in fish_prompt_text"
+        fail_msg: "Custom fish prompt content not found in deployed fish_prompt.fish"

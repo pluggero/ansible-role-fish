@@ -23,3 +23,6 @@ fish_enable_vim_mode: true
 fish_keybindings:
   - key: \ct
     function: "take"
+
+fish_prompt_custom: |
+  echo -n "molecule_test> "

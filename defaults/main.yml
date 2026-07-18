@@ -64,5 +64,10 @@ fish_functions: []
   #   description: "example"
   #   command: "example"
 
+fish_prompt_enabled: true
+
+fish_prompt_custom: ""
+  # echo -n "> "
+
 fish_additional_config: []
   # - "zoxide init fish | source"

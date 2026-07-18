@@ -93,6 +93,19 @@ fish_functions:
 Set functions for the fish shell with the `fish_functions` variable.
 
 ```yaml
+fish_prompt_enabled: true
+```
+
+Enable or disable the custom fish prompt with the `fish_prompt_enabled` variable. When `false`, no `fish_prompt.fish` is deployed and fish falls back to its own built-in prompt.
+
+```yaml
+fish_prompt_custom: |
+  echo -n "> "
+```
+
+Set the body of the `fish_prompt` function with the `fish_prompt_custom` variable. The role has no default prompt of its own — when left empty, fish uses its own built-in prompt.
+
+```yaml
 fish_login_shell_commands:
   - exec /usr/bin/sway
 ```

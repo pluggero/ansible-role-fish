@@ -1,0 +1,7 @@
+#jinja2: lstrip_blocks: True, trim_blocks: True
+{{ ansible_managed | comment }}
+function fish_prompt
+{% for line in fish_prompt_custom.splitlines() %}
+    {{ line }}
+{% endfor %}
+end
