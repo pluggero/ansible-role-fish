@@ -68,7 +68,9 @@
     - name: Verify keybinding is configured
       ansible.builtin.assert:
         that:
-          - "'bind \\ct' in fish_config_text"
+          - "'bind -M insert \\ct' in fish_config_text"
+          - "'bind -M default \\ct' in fish_config_text"
+          - "'bind -M visual \\ct' in fish_config_text"
           - "'take' in fish_config_text"
         fail_msg: "Keybinding \\ct not found in fish config"
 

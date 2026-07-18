@@ -58,7 +58,9 @@ status is-interactive; and begin
   # Keybindings
   {% if fish_keybindings is defined and fish_keybindings is not none and fish_keybindings %}
   {% for keybinding in fish_keybindings %}
-  bind {{ keybinding.key }} "{{ keybinding.function }}"
+  bind -M insert {{ keybinding.key }} "{{ keybinding.function }}"
+  bind -M default {{ keybinding.key }} "{{ keybinding.function }}"
+  bind -M visual {{ keybinding.key }} "{{ keybinding.function }}"
   {% endfor %}
   {% endif %}
 
