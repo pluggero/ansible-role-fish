@@ -20,6 +20,10 @@
     {
       "matchManagers": ["custom.regex", "ansible-galaxy"],
       "automerge": false
+    },
+    {
+      "matchDatasources": ["github-runners"],
+      "automerge": false
     }
   ],
   "enabledManagers": [
