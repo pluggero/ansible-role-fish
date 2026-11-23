@@ -18,4 +18,4 @@
       become: true
 
   roles:
-    - role: pluggero.fish
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"

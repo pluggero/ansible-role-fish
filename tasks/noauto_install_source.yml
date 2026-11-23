@@ -57,12 +57,19 @@
             dest: "{{ fish_download_dir }}/"
             remote_src: true
 
+        - name: Patch upstream fish cmake install(SCRIPT CODE) bug
+          # TODO: remove once fish_version >= release containing upstream commit 95dccbe5
+          ansible.builtin.replace:
+            path: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}/cmake/Install.cmake"
+            regexp: 'install\(SCRIPT CODE "'
+            replace: 'install(CODE "'
+
         - name: Configure fish
           ansible.builtin.command:
             cmd: cmake .
             chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
           environment:
-            PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+            PATH: "{{ ansible_facts.env.HOME }}/.cargo/bin:{{ ansible_facts.env.PATH }}"
           changed_when: true
 
         - name: Determine parallel build jobs
@@ -76,7 +83,7 @@
           environment:
             # Avoid build.rs panic when git isn't available or the source isn't a git repo
             FISH_BUILD_VERSION: "{{ fish_version }}"
-            PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+            PATH: "{{ ansible_facts.env.HOME }}/.cargo/bin:{{ ansible_facts.env.PATH }}"
           changed_when: true
 
         - name: Install fish
@@ -85,7 +92,7 @@
             chdir: "{{ fish_download_dir }}/fish-shell-{{ fish_version }}"
           environment:
             FISH_BUILD_VERSION: "{{ fish_version }}"
-            PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+            PATH: "{{ ansible_facts.env.HOME }}/.cargo/bin:{{ ansible_facts.env.PATH }}"
             RUSTUP_TOOLCHAIN: "{{ rustup_rust_version }}"
           changed_when: true
           become: true

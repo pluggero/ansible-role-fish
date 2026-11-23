@@ -9,16 +9,22 @@
     {
       "matchManagers": ["github-actions", "pip_requirements"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "minimumReleaseAge": "7 days"
     },
     {
       "matchManagers": ["custom.regex"],
       "matchDepNames": ["python/cpython"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "minimumReleaseAge": "7 days"
     },
     {
       "matchManagers": ["custom.regex", "ansible-galaxy"],
+      "automerge": false
+    },
+    {
+      "matchDatasources": ["github-runners"],
       "automerge": false
     }
   ],
@@ -36,14 +42,22 @@
   "assignees": [
     "pluggero"
   ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": null,
+    "automerge": false,
+    "labels": ["security"]
+  },
   "customManagers": [
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^defaults/main\\.yml$/"
+        "/^defaults/main\\.yml$/",
+        "/^meta/argument_specs\\.yml$/"
       ],
       "matchStrings": [
-        "fish_version:\\s+\"(?<currentValue>[\\d\\.]+)\""
+        "fish_version:\\s+\"(?<currentValue>[\\d\\.]+)\"",
+        "fish_version:\\s*\\n\\s*type: str\\s*\\n\\s*required: false\\s*\\n\\s*default: \"(?<currentValue>[\\d\\.]+)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "fish-shell/fish-shell",
