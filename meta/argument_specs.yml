@@ -11,7 +11,7 @@ argument_specs:
       fish_config_dir:
         type: path
         required: false
-        default: "{{ ansible_env.HOME }}/.config/fish"
+        default: "{{ ansible_facts.env.HOME }}/.config/fish"
         description: Directory where the fish configuration files are stored.
       fish_config_file:
         type: path
