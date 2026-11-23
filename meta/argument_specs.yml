@@ -1,0 +1,203 @@
+---
+argument_specs:
+  main:
+    short_description: Installs and configures a basic fish shell setup on various Linux distributions.
+    description: >-
+      Installs fish shell (via package manager, source, or dynamically picking
+      whichever satisfies fish_version), and configures its environment
+      variables, abbreviations, aliases, colors, keybindings, functions, and
+      prompt.
+    options:
+      fish_config_dir:
+        type: path
+        required: false
+        default: "{{ ansible_env.HOME }}/.config/fish"
+        description: Directory where the fish configuration files are stored.
+      fish_config_file:
+        type: path
+        required: false
+        default: "{{ fish_config_dir }}/config.fish"
+        description: Path to the main fish config file.
+      fish_version:
+        type: str
+        required: false
+        default: "4.8.1"
+        description: Version of fish to install.
+      fish_install_method:
+        type: str
+        required: false
+        default: "dynamic"
+        choices:
+          - source
+          - package
+          - dynamic
+        description: >-
+          Method used to install fish: source (build from source), package
+          (install via the OS package manager), or dynamic (install via
+          package manager if it satisfies fish_version, otherwise build from
+          source).
+      fish_force_install:
+        type: bool
+        required: false
+        default: false
+        description: Force reinstall of fish regardless of the currently installed version.
+      fish_rustup_role:
+        type: str
+        required: false
+        default: "pluggero.rustup"
+        description: Name of the rustup role used to provide a Rust toolchain when building fish from source.
+      fish_download_url:
+        type: str
+        required: false
+        default: "https://github.com/fish-shell/fish-shell/archive/refs/tags/{{ fish_version }}.tar.gz"
+        description: URL used to download the fish source archive.
+      fish_download_dir:
+        type: path
+        required: false
+        default: "/tmp"
+        description: Directory fish's source archive is downloaded to and built in.
+      fish_functions_dir:
+        type: path
+        required: false
+        default: "{{ fish_config_dir }}/functions"
+        description: Directory where fish function files are stored.
+      fish_set_default_shell:
+        type: bool
+        required: false
+        default: false
+        description: Set fish as the default shell for the user.
+      fish_enable_vim_mode:
+        type: bool
+        required: false
+        default: false
+        description: Enable vim mode for the fish shell.
+      fish_login_shell_commands:
+        type: list
+        elements: str
+        required: false
+        default: []
+        description: Commands run in the fish login shell config.
+      fish_env_variables:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: Environment variables set for the fish shell.
+        options:
+          name:
+            type: str
+            required: true
+            description: Name of the environment variable.
+          value:
+            type: str
+            required: true
+            description: Value of the environment variable.
+      fish_env_files:
+        type: list
+        elements: path
+        required: false
+        default: []
+        description: Files sourced as environment files by the fish shell.
+      fish_abbreviations:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: Abbreviations set for the fish shell.
+        options:
+          name:
+            type: str
+            required: true
+            description: Abbreviation name.
+          value:
+            type: str
+            required: true
+            description: Command the abbreviation expands to.
+      fish_aliases:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: Aliases set for the fish shell.
+        options:
+          name:
+            type: str
+            required: true
+            description: Alias name.
+          value:
+            type: str
+            required: true
+            description: Command the alias runs.
+      fish_colors:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: >-
+          fish color variables to set (e.g. fish_color_command,
+          fish_pager_color_prefix). See defaults/main.yml for the full list of
+          available fish_color_* / fish_pager_color_* variable names.
+        options:
+          name:
+            type: str
+            required: true
+            description: Full fish color variable name.
+          value:
+            type: str
+            required: true
+            description: Color value (named color, hex code, and/or modifiers).
+      fish_keybindings:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: Keybindings set for the fish shell.
+        options:
+          key:
+            type: str
+            required: true
+            description: Key sequence to bind, as accepted by `bind`.
+          function:
+            type: str
+            required: true
+            description: Fish function or command run when the key is pressed.
+      fish_functions:
+        type: list
+        elements: dict
+        required: false
+        default: []
+        description: Functions set for the fish shell.
+        options:
+          name:
+            type: str
+            required: true
+            description: Function name.
+          description:
+            type: str
+            required: true
+            description: Function description.
+          command:
+            type: str
+            required: true
+            description: Body of the function.
+      fish_prompt_enabled:
+        type: bool
+        required: false
+        default: true
+        description: >-
+          Enable or disable the custom fish prompt. When false, no
+          fish_prompt.fish is deployed and fish falls back to its own
+          built-in prompt.
+      fish_prompt_custom:
+        type: str
+        required: false
+        default: ""
+        description: >-
+          Body of the fish_prompt function. The role has no default prompt of
+          its own — when left empty, fish uses its own built-in prompt.
+      fish_additional_config:
+        type: list
+        elements: str
+        required: false
+        default: []
+        description: Additional raw lines appended to the fish config file.
