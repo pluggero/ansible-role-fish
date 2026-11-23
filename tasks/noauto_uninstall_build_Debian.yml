@@ -1,0 +1,16 @@
+---
+- name: Ensure we are using apt
+  ansible.builtin.fail:
+    msg: "This role only supports {{ ansible_os_family }} systems that use apt as a package manager."
+  when: ansible_pkg_mgr != "apt"
+
+- name: Remove fish build pkgs via apt
+  block:
+    - name: Ensure fish build pkgs are removed
+      ansible.builtin.apt:
+        name: "{{ package }}"
+        state: absent
+      loop: "{{ fish_build_pkgs_to_remove }}"
+      loop_control:
+        loop_var: package
+      become: true

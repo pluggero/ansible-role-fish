@@ -112,6 +112,15 @@ fish_login_shell_commands:
 
 Set login shell commands for the fish shell with the `fish_login_shell_commands` variable.
 
+```yaml
+fish_remove_build_pkgs: true
+```
+
+When installing fish from source, remove the build packages this role itself
+installed once the build is done, with the `fish_remove_build_pkgs`
+variable. Only packages this run actually installed are removed — build
+packages that were already present beforehand are left alone.
+
 ## Dependencies
 
 None.

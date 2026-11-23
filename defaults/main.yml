@@ -5,6 +5,7 @@ fish_config_file: "{{ fish_config_dir }}/config.fish"
 fish_version: "4.8.1"
 fish_install_method: "dynamic"
 fish_force_install: false
+fish_remove_build_pkgs: true
 
 fish_rustup_role: "pluggero.rustup"
 
