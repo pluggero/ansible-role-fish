@@ -24,6 +24,14 @@
             name: "{{ fish_rustup_role }}"
             public: true
 
+        - name: Gather installed packages
+          ansible.builtin.package_facts:
+            manager: auto
+
+        - name: Determine build packages not yet installed
+          ansible.builtin.set_fact:
+            fish_build_pkgs_to_remove: "{{ fish_build_pkgs | reject('in', ansible_facts.packages) | list }}"
+
         - name: Install OS-specific build packages
           ansible.builtin.include_tasks: "{{ task_file }}"
           with_first_found:
@@ -99,3 +107,17 @@
           ansible.builtin.file:
             path: "{{ fish_download_dir }}/fish-{{ fish_version }}.tar.gz"
             state: absent
+
+        - name: Remove OS-specific build packages
+          ansible.builtin.include_tasks: "{{ task_file }}"
+          with_first_found:
+            - "{{ role_path }}/tasks/noauto_uninstall_build_{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+            - "{{ role_path }}/tasks/noauto_uninstall_build_{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+            - "{{ role_path }}/tasks/noauto_uninstall_build_{{ ansible_distribution }}.yml"
+            - "{{ role_path }}/tasks/noauto_uninstall_build_{{ ansible_os_family }}.yml"
+            - "{{ role_path }}/tasks/noauto_uninstall_build_{{ ansible_lsb.id }}.yml"
+          loop_control:
+            loop_var: task_file
+          when:
+            - fish_remove_build_pkgs
+            - fish_build_pkgs_to_remove | length > 0
