@@ -21,7 +21,7 @@ argument_specs:
       fish_version:
         type: str
         required: false
-        default: "4.8.1"
+        default: "4.9.3"
         description: Version of fish to install.
       fish_install_method:
         type: str
